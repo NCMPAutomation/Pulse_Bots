@@ -1,12 +1,13 @@
-$csv1 = Import-Csv -Path "C:\Path\to\your\firstfile.csv"
-$csv2 = Import-Csv -Path "C:\Path\to\your\secondfile.csv"
+# Import the CSV files
+$csv1 = Import-Csv -Path $csvPath1
+$csv2 = Import-Csv -Path $csvPath2
 
-$comparison = Compare-Object -ReferenceObject $csv1 -DifferenceObject $csv2 -Property ColumnName
+$differences = Compare-Object -ReferenceObject $csv1 -DifferenceObject $csv2 -Property Name
 
-$comparison | ForEach-Object {
+$differences | ForEach-Object {
     if ($_.SideIndicator -eq "<=") {
-        Write-Output "Only in first file: $($_.ColumnName)"
+        Write-Output "NAME: $_.Name in first file"
     } elseif ($_.SideIndicator -eq "=>") {
-        Write-Output "Only in second file: $($_.ColumnName)"
+        Write-Output "NAME: $_.Name in Second file"
     }
 }
