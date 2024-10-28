@@ -1,28 +1,39 @@
-﻿
-$sql = New-Object data.sqlclient.sqlconnection
+[void][System.Reflection.Assembly]::LoadWithPartialName("MySql.Data")
+# Define MySQL connection details
+$server = "localhost"  # Replace with your MySQL server address
+$username = "root"     # Replace with your MySQL username
+$password = "root" # Replace with your MySQL password
+$database = "test_automation" # Name of the new schema
 
-$sql.ConnectionString = "Server=DB Name;integrated security=false;initial catalog=PatchAutomation;user id=user_id;password=password"
+# Create a new schema
+$createSchemaQuery = "CREATE SCHEMA IF NOT EXISTS $database;"
 
-$sql.Open()
-
-$sqlcmd = $sql.CreateCommand()
-
-$sqlcmd = New-Object system.data.sqlclient.sqlcommand
-
-$sqlcmd.connection = $sql
-
-$query = @"
-INSERT INTO table (column1, column2, column3)
-VALUES ('value1', 'value2', value3)
+# Create a new table within the schema
+$createTableQuery = @"
+CREATE TABLE IF NOT EXISTS $database.test_table (
+    id VARCHAR(255),
+    name VARCHAR(255),
+    place VARCHAR(255)
+);
 "@
-;
 
-$sqlcmd.CommandText = $query
+# Function to execute MySQL query
+function Execute-MySQLQuery {
+    param (
+        [string]$query
+    )
+    $connectionString = "server=$server;user id=$username;password=$password;database=mysql"
+    $connection = New-Object MySql.Data.MySqlClient.MySqlConnection
+    $connection.ConnectionString = $connectionString
+    $connection.Open()
+    $command = $connection.CreateCommand()
+    $command.CommandText = $query
+    $command.ExecuteNonQuery()
+    $connection.Close()
+}
 
-$adp = New-Object System.Data.SqlClient.SqlDataAdapter $sqlcmd
+# Execute the queries
+Execute-MySQLQuery -query $createSchemaQuery
+Execute-MySQLQuery -query $createTableQuery
 
-$data = New-Object System.Data.DataSet
-
-$adp.Fill($data) | Out-Null
-
-$data.Tables
+Write-Output "Schema and table created successfully."
