@@ -1,29 +1,19 @@
-﻿
-$sql = New-Object data.sqlclient.sqlconnection
-
-$sql.ConnectionString = "Server=DB Name;integrated security=false;initial catalog=PatchAutomation;user id=user_id;password=password"
-
-$sql.Open()
-
-$sqlcmd = $sql.CreateCommand()
-
-$sqlcmd = New-Object system.data.sqlclient.sqlcommand
-
-$sqlcmd.connection = $sql
-
-$query = @"
-UPDATE table
-SET column1 = value1
-WHERE condition1 = 'value_condition1'
-"@
-;
-
-$sqlcmd.CommandText = $query
-
-$adp = New-Object System.Data.SqlClient.SqlDataAdapter $sqlcmd
-
-$data = New-Object System.Data.DataSet
-
-$adp.Fill($data) | Out-Null
-
-$data.Tables
+$mysql_server = ""
+$mysql_user = ""
+$mysql_password = ""
+$dbName = ""
+ 
+[void][system.reflection.Assembly]::LoadFrom("C:\Program Files (x86)\MySQL\MySQL Installer for Windows\MySql.Data.dll")
+ 
+$Connection = New-Object -TypeName MySql.Data.MySqlClient.MySqlConnection
+$Connection.ConnectionString = "SERVER=$mysql_server;DATABASE=$dbName;UID=$mysql_user;PWD=$mysql_password"
+ 
+$Connection.Open()
+ 
+$sql = New-Object MySql.Data.MySqlClient.MySqlCommand
+$sql.Connection = $Connection
+ 
+$sql.CommandText = "UPDATE test_table SET Name='John Doe' WHERE PLace='INDIA'"
+$sql.ExecuteNonQuery()
+ 
+$Connection.Close()
