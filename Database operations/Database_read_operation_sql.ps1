@@ -1,28 +1,35 @@
-﻿
-$sql = New-Object data.sqlclient.sqlconnection
+[void][System.Reflection.Assembly]::LoadWithPartialName("MySql.Data")
+# Define MySQL connection details
+$server = "localhost"  # Replace with your MySQL server address
+$username = "root"     # Replace with your MySQL username
+$password = "root" # Replace with your MySQL password
+$database = "test_automation" # Name of the new schema
 
-$sql.ConnectionString = "Server=DB Name;integrated security=false;initial catalog=PatchAutomation;user id=user_id;password=password"
+$TableQuery = @"
+SELECT * FROM test_automation.test_table WHERE name = 'AAA';
+"@
 
-$sql.Open()
+# Function to execute MySQL query
+function Execute-MySQLQuery {
+    param (
+        [string]$query
+    )
+    $connectionString = "server=$server;user id=$username;password=$password;database=mysql"
+    $connection = New-Object MySql.Data.MySqlClient.MySqlConnection
+    $connection.ConnectionString = $connectionString
+    $connection.Open()
+    $command = $connection.CreateCommand()
+    $command.CommandText = $query
+    $reader = $command.ExecuteReader()
+    while ($reader.Read()) {
+    for ($i = 0; $i -lt $reader.FieldCount; $i++) {
+        Write-Output $reader.GetValue($i)
+    }
+}
+$reader.Close()
 
-$sqlcmd = $sql.CreateCommand()
+    $connection.Close()
+}
 
-$sqlcmd = New-Object system.data.sqlclient.sqlcommand
 
-$sqlcmd.connection = $sql
-
-$query ="select * from table
-
-        where condition1 = 'value1' and condition2 = 'value2'
-
-       ;"
-
-$sqlcmd.CommandText = $query
-
-$adp = New-Object System.Data.SqlClient.SqlDataAdapter $sqlcmd
-
-$data = New-Object System.Data.DataSet
-
-$adp.Fill($data) | Out-Null
-
-$data.Tables
+Execute-MySQLQuery -query $TableQuery
