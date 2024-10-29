@@ -1,28 +1,25 @@
-# Specify the path to the XML file
-$xmlFilePath = "C:\Path\To\Your\File.xml"
+#Path to the XML file
+$xmlFilePath = "C:\Users\Netcon\Downloads\sample_xml.xml"
 
-# Specify the path for the output CSV file
-$outputCsvFilePath = "C:\Path\To\Output\File.csv"
+# Read the content of the XML file and convert to XML object
+$xml = New-Object XML
+$xml.Load($xmlFilePath)
 
-# Load the XML file
-$xmlData = xml
-
-# Create a StringBuilder object to store the CSV content
-$csvContent = New-Object System.Text.StringBuilder
-
-# Add the CSV header row
-$csvContent.AppendLine("Name,Email,Phone,Mobile")
-
-# Get the XML node values and append them to the CSV content
-foreach ($node in $xmlData.SelectNodes("//contact")) {
-    $name = $node.SelectSingleNode("name").InnerText
-    $email = $node.SelectSingleNode("email").InnerText
-    $phone = $node.SelectSingleNode("phone").InnerText
-    $mobile = $node.SelectSingleNode("mobile").InnerText
-    $csvContent.AppendLine("$name,$email,$phone,$mobile")
+# Parse the XML and create an object array
+$Array = @()
+foreach ($val in $xml.note) {
+    $Object = [PSCustomObject]@{
+        #change the below variables as per the csv columns requirements
+        to          = $val.to
+        from         = $val.from
+        heading = $val.heading
+        body = $val.body
+    }
+    $Array += $Object
 }
 
-# Save the CSV content to a file
-$csvContent.ToString() | Out-File -FilePath $outputCsvFilePath -Encoding UTF8
+# Convert the array to CSV
 
-Write-Host "Data has been extracted and exported to $outputCsvFilePath."
+$csv = $Array | ConvertTo-Csv -NoTypeInformation
+# Display the result
+Write-Output $csv
