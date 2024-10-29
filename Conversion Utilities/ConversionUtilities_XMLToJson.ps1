@@ -1,8 +1,25 @@
-# Load the XML file
-[xml]$xml = Get-Content -Path "path\to\your\file.xml"
+#Path to the XML file
+$xmlFilePath = "C:\Users\Netcon\Downloads\sample_xml.xml"
 
-# Convert the XML to JSON
-$json = $xml | ConvertTo-Json -Depth 3
+# Read the content of the XML file and convert to XML object
+$xml = New-Object XML
+$xml.Load($xmlFilePath)
 
-# Save the JSON to a file
-$json | Set-Content -Path "path\to\your\file.json"
+# Parse the XML and create an object array
+$Array = @()
+foreach ($val in $xml.note) {
+    $Object = [PSCustomObject]@{
+        #change the below variables as per the json body requirements
+        to          = $val.to
+        from         = $val.from
+        heading = $val.heading
+        body = $val.body
+    }
+    $Array += $Object
+}
+
+# Convert the array to JSON
+
+$json = $Array | ConvertTo-Json
+# Display the result
+Write-Output $json
