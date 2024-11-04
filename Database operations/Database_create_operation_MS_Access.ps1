@@ -1,18 +1,35 @@
-﻿# Load the necessary .NET assembly
-Add-Type -AssemblyName System.Data
+# Define the path for the new Access database
+$databasePath = "path to DB"
 
-# Connection string
-$connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=Path\To\Your\Database.accdb;"
+# Create a new Access database
+$connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=$databasePath"
+$catalog = New-Object -ComObject ADOX.Catalog
+$catalog.Create($connectionString)
 
-# Create a connection
-$connection = New-Object System.Data.OleDb.OleDbConnection($connectionString)
-$connection.Open()
+# Connect to the new database
+$connection = New-Object -ComObject ADODB.Connection
+$connection.Open($connectionString)
 
-# Create Operation
-$createQuery = "INSERT INTO table (column1, column2, column3) VALUES ('value1', 'value2', value3)"
-$createCommand = $connection.CreateCommand()
-$createCommand.CommandText = $createQuery
-$createCommand.ExecuteNonQuery()
+# Create a new table
+$tableName = "TestTable1"
+$createTableQuery = @"
+CREATE TABLE $tableName (
+    ID AUTOINCREMENT PRIMARY KEY,
+    Name TEXT(50),
+    Age INT
+)
+"@
+$connection.Execute($createTableQuery)
+
+# Insert test data into the table
+$insertDataQuery = @"
+INSERT INTO $tableName (Name, Age) VALUES ('John Doe', 30);
+
+"@
+
+$connection.Execute($insertDataQuery)
 
 # Close the connection
 $connection.Close()
+
+Write-Output "Database created and populated with test data successfully."
