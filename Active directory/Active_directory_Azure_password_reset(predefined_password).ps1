@@ -11,7 +11,7 @@
                      $body = "Hi,
                       As requested, the password has been reset for the machine:
                         
-                      VM Name : $vm_name
+                     
                       Username: $user
                       New Password: $password
 
