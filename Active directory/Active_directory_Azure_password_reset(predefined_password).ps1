@@ -1,8 +1,8 @@
 ﻿                     
                      #pre definedpassword
                      $user = 'janedoe@netcon.in'
-                     $username1 = 'netdevopsid@netcon.in'
-                     $password1 = 'D3v0ps@321'
+                     $username1 = ''
+                     $password1 = ''
                      $pass1= ConvertTo-SecureString $password1 -AsPlainText -Force
                      $azure_cred = New-Object System.Management.Automation.PsCredential( $username1, $pass1 )
                      $connect= Connect-AzureAD -Credential $azure_cred -WarningAction Ignore -Confirm:$false -Tenant "3865b44b-651f-4df8-a0c8-2625494f6198" 
@@ -25,8 +25,8 @@
  
                       Best regards,
                       Automation Team"
-                      $username = "netconncmp@netcon.in"
-                      $password = "DRd00m_2024" # Consider using a secure string for passwords
+                      $username = ""
+                      $password = "" # Consider using a secure string for passwords
                       # Create a secure password
                       $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
                       # Create a new PSCredential object
