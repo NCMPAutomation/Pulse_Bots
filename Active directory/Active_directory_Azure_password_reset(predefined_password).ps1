@@ -5,7 +5,7 @@
                      $password1 = ''
                      $pass1= ConvertTo-SecureString $password1 -AsPlainText -Force
                      $azure_cred = New-Object System.Management.Automation.PsCredential( $username1, $pass1 )
-                     $connect= Connect-AzureAD -Credential $azure_cred -WarningAction Ignore -Confirm:$false -Tenant "3865b44b-651f-4df8-a0c8-2625494f6198" 
+                     $connect= Connect-AzureAD -Credential $azure_cred -WarningAction Ignore -Confirm:$false -Tenant "" 
                      $password = ConvertTo-SecureString 'MyNewPassword@123' -AsPlainText -Force
                      $set_password= Set-AzureADUserPassword -ObjectId  $user -Password $password -ForceChangePasswordNextLogin $true
                      $body = "Hi,
@@ -32,4 +32,4 @@
                       # Create a new PSCredential object
                       $credential = New-Object System.Management.Automation.PSCredential($username, $securePassword)
                       # Send the email
-                      Send-MailMessage -SmtpServer "smtp.office365.com" -Port 587 -From "netconncmp@netcon.in" -To "netconncmp@netcon.in" -Bcc 'athulya.s@netcon.in' -Subject "Patching Report" -Body $body -BodyAsHtml  -Credential $Credential -UseSsl
+                      Send-MailMessage -SmtpServer "" -Port 587 -From "test@netcon.in" -To "netconncmp@netcon.in" -Bcc 'athulya.s@netcon.in' -Subject " Report" -Body $body -BodyAsHtml  -Credential $Credential -UseSsl
