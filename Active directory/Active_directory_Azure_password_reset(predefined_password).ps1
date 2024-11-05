@@ -32,4 +32,4 @@
                       # Create a new PSCredential object
                       $credential = New-Object System.Management.Automation.PSCredential($username, $securePassword)
                       # Send the email
-                      Send-MailMessage -SmtpServer "" -Port 587 -From "test@netcon.in" -To "netconncmp@netcon.in" -Bcc 'athulya.s@netcon.in' -Subject " Report" -Body $body -BodyAsHtml  -Credential $Credential -UseSsl
+                      Send-MailMessage -SmtpServer "" -Port 587 -From "test@netcon.in" -To "" -Bcc '' -Subject " Report" -Body $body -BodyAsHtml  -Credential $Credential -UseSsl
