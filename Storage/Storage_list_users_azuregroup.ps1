@@ -1,5 +1,5 @@
 ﻿# Connect to your Azure account
-Connect-AzureAD
+Connect-AzureAD -Credential $azure_cred
 
 # Define the group object ID or display name
 $groupId = "YourGroupObjectIdOrDisplayName"
