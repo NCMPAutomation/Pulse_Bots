@@ -1,3 +1,4 @@
+#This script adds a license to the azure AD user account
 $user = ''
 $username1 = ''
 $password1 = ''
