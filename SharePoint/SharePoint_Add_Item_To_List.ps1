@@ -3,23 +3,22 @@ Add-Type -Path "C:\Program Files\Common Files\microsoft shared\Web Server Extens
 Add-Type -Path "C:\Program Files\Common Files\microsoft shared\Web Server Extensions\16\ISAPI\Microsoft.SharePoint.Client.Runtime.dll"
 
 
-
 # Set up credentials and context
-$siteUrl = "https://tenant.sharepoint.com/sharepoint_automation_testing_create_site"
+$siteUrl = "https://tenantinfo.sharepoint.com/sharepoint_automation_testing_create_site"
 $username = ""
 $password = ""
 $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
 $credentials = New-Object Microsoft.SharePoint.Client.SharePointOnlineCredentials($username, $securePassword)
+ 
 $context = New-Object Microsoft.SharePoint.Client.ClientContext($siteUrl)
 $context.Credentials = $credentials
-
-# Define the list creation properties
-$listCreationInfo = New-Object Microsoft.SharePoint.Client.ListCreationInformation
-$listCreationInfo.Title = "Test List Title"  # Replace with your list title
-$listCreationInfo.TemplateType = [Microsoft.SharePoint.Client.ListTemplateType]::GenericList  # Use appropriate template type
-
-# Create the list
-$list = $context.Web.Lists.Add($listCreationInfo)
+ 
+# Add a list item
+$list = $context.Web.Lists.GetByTitle("Test List Title")
+$itemCreationInfo = New-Object Microsoft.SharePoint.Client.ListItemCreationInformation
+$listItem = $list.AddItem($itemCreationInfo)
+$listItem["Title"] = "Test Title Item"
+#$listItem["Category"] = "Test Category Item"
+$listItem.Update()
+ 
 $context.ExecuteQuery()
-
-Write-Host "List 'New List Title' created successfully."
