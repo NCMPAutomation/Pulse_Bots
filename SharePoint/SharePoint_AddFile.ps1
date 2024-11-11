@@ -1,14 +1,39 @@
-Import-Module Pnp.Powershell
-$username = 'netdevopsid@netcon.in'
-$password = 'password'
-$pass= ConvertTo-SecureString $password -AsPlainText -Force
+# Load SharePoint CSOM Assemblies
+Add-Type -Path "C:\Program Files\Common Files\microsoft shared\Web Server Extensions\16\ISAPI\Microsoft.SharePoint.Client.dll"
+Add-Type -Path "C:\Program Files\Common Files\microsoft shared\Web Server Extensions\16\ISAPI\Microsoft.SharePoint.Client.Runtime.dll"
 
-$credential = New-Object System.Management.Automation.PsCredential( $username, $pass )
-$siteUrl = "https://contoso.sharepoint.com/sites/Contoso"
-$groupName = "Team Site Members"
-$userEmail = "john.doe@contoso.com"
-Connect-PnPOnline -Url https://contoso-admin.sharepoint.com -Credential $credential
-Add-PnPFile -Path c:\temp\company.master -Folder "_catalogs/masterpage"
-Disconnect-PnPOnline
-
-
+ 
+# SharePoint Online site URL
+$siteUrl = ""
+$username = ""
+$password = ""
+$securePassword = ConvertTo-SecureString $password -AsPlainText -Force
+$credentials = New-Object Microsoft.SharePoint.Client.SharePointOnlineCredentials($username, $securePassword)
+ 
+# Connect to SharePoint Online site
+$context = New-Object Microsoft.SharePoint.Client.ClientContext($siteUrl)
+$context.Credentials = $credentials
+ 
+# Upload a file to a document library
+$filePath = ""
+$targetLibrary = "Shared Documents"
+ 
+# Get the target library
+$library = $context.Web.GetFolderByServerRelativeUrl($targetLibrary)
+$context.Load($library)
+$context.ExecuteQuery()
+ 
+# Upload the file
+$fileCreationInfo = New-Object Microsoft.SharePoint.Client.FileCreationInformation
+$fileCreationInfo.Content = [System.IO.File]::ReadAllBytes($filePath)
+$fileCreationInfo.Url = [System.IO.Path]::GetFileName($filePath)
+$fileCreationInfo.Overwrite = $true
+ 
+$uploadedFile = $library.Files.Add($fileCreationInfo)
+$context.Load($uploadedFile)
+$context.ExecuteQuery()
+ 
+Write-Output "File '$($uploadedFile.ServerRelativeUrl)' uploaded successfully."
+ 
+# Disconnect from SharePoint Online
+$context.Dispose()
