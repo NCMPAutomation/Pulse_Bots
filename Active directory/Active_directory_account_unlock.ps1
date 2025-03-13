@@ -1,4 +1,4 @@
-﻿                     #To remove a printer
+
                      $user = 'user'
                      $username1 = 'username'
                      $password1 = 'password'
