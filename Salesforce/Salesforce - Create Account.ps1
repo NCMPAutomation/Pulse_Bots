@@ -1,4 +1,4 @@
-# Define Salesforce credentials and endpoint
+# Define Salesforce credentials and endpoints
 $instanceUrl = "https://yourInstance.salesforce.com"
 $clientId = "yourClientId"
 $clientSecret = "yourClientSecret"
