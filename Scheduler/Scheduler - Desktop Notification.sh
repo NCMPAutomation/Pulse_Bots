@@ -1,0 +1,1 @@
+notify-send "Reminder" "You have a meeting at 2 PM."
