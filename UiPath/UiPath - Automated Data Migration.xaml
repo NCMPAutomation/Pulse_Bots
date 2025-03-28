@@ -1,0 +1,12 @@
+' Load the data from a CSV file
+data = ReadRange("data.csv", "Sheet1")
+
+' Connect to the SQLite database
+conn = New SQLiteConnection("Data Source=database.db;Version=3;")
+conn.Open()
+
+' Migrate the data to the database
+data.ToSql("table_name", conn, IfExists.Replace)
+
+' Close the database connection
+conn.Close()

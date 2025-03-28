@@ -1,0 +1,14 @@
+' Define email parameters
+sender = "your_email@example.com"
+receiver = "recipient@example.com"
+subject = "Automated Email"
+body = "This is an automated email sent by an RPA script."
+
+' Create the email message
+emailMessage = New System.Net.Mail.MailMessage(sender, receiver, subject, body)
+
+' Send the email
+smtpClient = New System.Net.Mail.SmtpClient("smtp.example.com", 587)
+smtpClient.Credentials = New System.Net.NetworkCredential(sender, "your_password")
+smtpClient.EnableSsl = True
+smtpClient.Send(emailMessage)

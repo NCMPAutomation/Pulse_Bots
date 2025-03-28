@@ -1,0 +1,10 @@
+' Define the directory and new file name format
+directory = "C:\path\to\files"
+newNameFormat = "file_{0}.txt"
+
+' Rename each file in the directory
+files = Directory.GetFiles(directory)
+For i = 0 To files.Length - 1
+    newName = String.Format(newNameFormat, i)
+    File.Move(files(i), Path.Combine(directory, newName))
+Next

@@ -1,0 +1,11 @@
+' Open the PDF file
+pdfReader = New PdfReader("document.pdf")
+
+' Extract text from each page
+text = ""
+For i = 1 To pdfReader.NumberOfPages
+    text &= PdfTextExtractor.GetTextFromPage(pdfReader, i)
+Next
+
+' Save the extracted text to a file
+WriteTextFile("document.txt", text)

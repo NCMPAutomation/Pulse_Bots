@@ -1,0 +1,9 @@
+' Define the source and destination directories
+sourceDirectory = "C:\path\to\source"
+backupDirectory = "C:\path\to\backup"
+
+' Copy each file from the source to the backup directory
+files = Directory.GetFiles(sourceDirectory)
+For Each file In files
+    File.Copy(file, Path.Combine(backupDirectory, Path.GetFileName(file)))
+Next

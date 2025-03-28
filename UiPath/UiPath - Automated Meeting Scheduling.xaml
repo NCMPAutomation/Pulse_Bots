@@ -1,0 +1,12 @@
+' Define meeting details
+meetingDate = DateTime.Now.AddDays(1)
+meetingDetails = "Meeting scheduled for " & meetingDate.ToString("yyyy-MM-dd HH:mm:ss")
+
+' Create the email message
+emailMessage = New System.Net.Mail.MailMessage("your_email@example.com", "recipient@example.com", "Meeting Schedule", meetingDetails)
+
+' Send the email
+smtpClient = New System.Net.Mail.SmtpClient("smtp.example.com", 587)
+smtpClient.Credentials = New System.Net.NetworkCredential("your_email@example.com", "your_password")
+smtpClient.EnableSsl = True
+smtpClient.Send(emailMessage)

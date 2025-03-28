@@ -1,0 +1,29 @@
+' Define the invoice details
+invoiceDetails = New Dictionary(Of String, Object) From {
+    {"invoice_number", "12345"},
+    {"date", "2025-03-27"},
+    {"customer_name", "John Doe"},
+    {"items", New List(Of Dictionary(Of String, Object)) From {
+        New Dictionary(Of String, Object) From {{"description", "Product 1"}, {"quantity", 2}, {"price", 50}},
+        New Dictionary(Of String, Object) From {{"description", "Product 2"}, {"quantity", 1}, {"price", 100}}
+    }}
+}
+
+' Create a PDF object
+pdf = New PdfDocument()
+pdf.AddPage()
+
+' Add the invoice details to the PDF
+pdf.SetFont("Arial", 12, FontStyle.Bold)
+pdf.DrawString("Invoice Number: " & invoiceDetails("invoice_number"))
+pdf.DrawString("Date: " & invoiceDetails("date"))
+pdf.DrawString("Customer Name: " & invoiceDetails("customer_name"))
+
+' Add the items to the PDF
+pdf.SetFont("Arial", 12, FontStyle.Regular)
+For Each item In invoiceDetails("items")
+    pdf.DrawString(item("description") & " - " & item("quantity") & " x $" & item("price"))
+Next
+
+' Save the PDF to a file
+pdf.Save("invoice.pdf")

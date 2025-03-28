@@ -1,0 +1,14 @@
+' Open the browser and navigate to the social media site
+OpenBrowser("https://example.com/login")
+
+' Log in to the account
+TypeInto("[name='username']", "your_username")
+TypeInto("[name='password']", "your_password")
+Click("[name='login']")
+
+' Post a new status update
+TypeInto("[name='status']", "This is an automated post.")
+Click("[name='post']")
+
+' Close the browser
+CloseBrowser()

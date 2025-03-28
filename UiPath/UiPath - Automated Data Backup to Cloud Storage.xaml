@@ -1,0 +1,5 @@
+' Set up the S3 client
+s3Client = New AmazonS3Client()
+
+' Define the local directory and S3 bucket
+local

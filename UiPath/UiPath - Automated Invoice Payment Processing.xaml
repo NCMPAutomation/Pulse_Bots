@@ -1,0 +1,21 @@
+' Open the browser and navigate to the payment portal
+OpenBrowser("https://example.com/payment")
+
+' Log in to the account
+TypeInto("[name='username']", "your_username")
+TypeInto("[name='password']", "your_password")
+Click("[name='login']")
+
+' Navigate to the invoice payment section
+Click("[name='invoices']")
+
+' Process each unpaid invoice
+invoices = FindElements("[class='unpaid-invoice']")
+For Each invoice In invoices
+    Click(invoice)
+    Click("[name='pay']")
+Next
+
+' Log out and close the browser
+Click("[name='logout']")
+CloseBrowser()

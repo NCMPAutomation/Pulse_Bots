@@ -1,0 +1,20 @@
+' Open the browser and navigate to the HR portal
+OpenBrowser("https://example.com/hr")
+
+' Log in to the HR system
+TypeInto("[name='username']", "your_username")
+TypeInto("[name='password']", "your_password")
+Click("[name='login']")
+
+' Navigate to the employee onboarding section
+Click("[name='onboarding']")
+
+' Fill in the new employee details
+TypeInto("[name='employee_name']", "Jane Doe")
+TypeInto("[name='employee_email']", "jane.doe@example.com")
+TypeInto("[name='employee_position']", "Software Engineer")
+Click("[name='submit']")
+
+' Log out and close the browser
+Click("[name='logout']")
+CloseBrowser()

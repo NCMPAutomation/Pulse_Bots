@@ -1,0 +1,16 @@
+' Open the browser and navigate to the website
+OpenBrowser("https://example.com/products")
+
+' Get the page source
+pageSource = GetPageSource()
+
+' Use regex to find all product prices
+prices = System.Text.RegularExpressions.Regex.Matches(pageSource, "class='product-price'>(\d+.\d+)<")
+
+' Print each product price
+For Each price In prices
+    WriteLine(price.Groups(1).Value)
+Next
+
+' Close the browser
+CloseBrowser()

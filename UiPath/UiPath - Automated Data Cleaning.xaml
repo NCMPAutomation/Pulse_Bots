@@ -1,0 +1,8 @@
+' Load the data
+data = ReadRange("data.csv", "Sheet1")
+
+' Remove rows with missing values
+cleanedData = data.Dropna()
+
+' Save the cleaned data to a new CSV file
+WriteRange("cleaned_data.csv", "Sheet1", cleanedData)

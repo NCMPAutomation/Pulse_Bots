@@ -1,0 +1,15 @@
+' Load the data
+data = ReadRange("data.csv", "Sheet1")
+
+' Define validation rules
+Function ValidateRow(row As DataRow) As Boolean
+    If row("age") < 0 Or row("age") > 120 Then Return False
+    If Not row("email").Contains("@") Then Return False
+    Return True
+End Function
+
+' Apply validation rules to each row
+validData = data.Select(Function(row) ValidateRow(row))
+
+' Save the valid data to a new CSV file
+WriteRange("valid_data.csv", "Sheet1", validData)

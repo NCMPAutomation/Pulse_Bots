@@ -1,0 +1,10 @@
+' Open the browser and navigate to the web form
+OpenBrowser("https://example.com/form")
+
+' Fill in the form fields
+TypeInto("[name='name']", "John Doe")
+TypeInto("[name='email']", "john.doe@example.com")
+Click("[name='submit']")
+
+' Close the browser
+CloseBrowser()

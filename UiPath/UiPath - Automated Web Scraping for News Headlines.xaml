@@ -1,0 +1,16 @@
+' Open the browser and navigate to the news website
+OpenBrowser("https://example.com/news")
+
+' Get the page source
+pageSource = GetPageSource()
+
+' Use regex to find all news headlines
+headlines = System.Text.RegularExpressions.Regex.Matches(pageSource, "class='headline'>(.*?)<")
+
+' Print each headline
+For Each headline In headlines
+    WriteLine(headline.Groups(1).Value)
+Next
+
+' Close the browser
+CloseBrowser()

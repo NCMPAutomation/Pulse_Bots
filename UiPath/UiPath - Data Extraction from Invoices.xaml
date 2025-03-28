@@ -1,0 +1,11 @@
+' Load the invoice image
+invoiceImage = "invoice.png"
+
+' Use OCR to extract text from the image
+invoiceText = OCR.ReadText(invoiceImage)
+
+' Use regex to find the invoice number
+invoiceNumber = System.Text.RegularExpressions.Regex.Match(invoiceText, "Invoice Number: (\d+)").Groups(1).Value
+
+' Print the extracted invoice number
+WriteLine("Invoice Number: " & invoiceNumber)

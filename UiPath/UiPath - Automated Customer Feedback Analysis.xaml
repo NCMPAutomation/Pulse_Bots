@@ -1,0 +1,8 @@
+' Load the customer feedback data
+feedbackData = ReadRange("feedback.csv", "Sheet1")
+
+' Analyze the sentiment of each feedback
+feedbackData("sentiment") = feedbackData("feedback").Select(Function(feedback) TextBlob(feedback).Sentiment.Polarity)
+
+' Save the analyzed feedback to a new CSV file
+WriteRange("analyzed_feedback.csv", "Sheet1", feedbackData)

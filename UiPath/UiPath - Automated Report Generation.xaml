@@ -1,0 +1,14 @@
+' Load the data
+data = ReadRange("data.csv", "Sheet1")
+
+' Generate a summary report
+summary = data.Describe()
+
+' Save the summary report to a text file
+WriteTextFile("summary_report.txt", summary.ToString())
+
+' Create a plot of the data
+plot = data.Plot(kind:="bar")
+
+' Save the plot to an image file
+plot.Save("data_plot.png")

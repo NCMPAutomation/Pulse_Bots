@@ -1,0 +1,15 @@
+' Define the directory containing the Excel files
+directory = "C:\path\to\excel\files"
+
+' Initialize an empty DataTable
+consolidatedData = New DataTable()
+
+' Read each Excel file and append its data to the DataTable
+files = Directory.GetFiles(directory, "*.xlsx")
+For Each file In files
+    data = ReadRange(file, "Sheet1")
+    consolidatedData.Merge(data)
+Next
+
+' Save the consolidated data to a new Excel file
+WriteRange("consolidated_data.xlsx", "Sheet1", consolidatedData)
