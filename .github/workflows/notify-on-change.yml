@@ -21,7 +21,7 @@ jobs:
       id: commit_details
       run: |
         echo "::set-output name=message::$(git log -1 --pretty=%B)"
-        echo "::set-output name=url::$(git log -1 --pretty=%H)"
+        echo "::set-output name=sha::$(git log -1 --pretty=%H)"
 
     - name: Send notification email
       uses: dawidd6/action-send-mail@v3
@@ -38,4 +38,4 @@ jobs:
           Total number of files (excluding .jpg): ${{ steps.file_count.outputs.count }}
           Commit details:
           Message: ${{ steps.commit_details.outputs.message }}
-          URL: https://github.com/Pulse_Bots/commit/${{ steps.commit_details.outputs.url }}
+          URL: https://github.com/${{ github.repository }}/commit/${{ steps.commit_details.outputs.sha }}
