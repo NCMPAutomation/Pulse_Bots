@@ -31,8 +31,8 @@ jobs:
         username: ${{ secrets.SMTP_USERNAME }}
         password: ${{ secrets.SMTP_PASSWORD }}
         subject: Repository Change Notification
-        to: recipient@example.com  # Replace with the recipient's email address
-        from: sender@example.com  # Replace with the sender's email address
+        to: athulya.s@netcon.in  # Replace with the recipient's email address
+        from: netconncmp@netcon.in  # Replace with the sender's email address
         body: |
           Changes have been made to the repository.
           Total number of files (excluding .jpg): ${{ steps.file_count.outputs.count }}
