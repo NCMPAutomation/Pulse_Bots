@@ -15,7 +15,9 @@ jobs:
 
     - name: Get repository file count excluding .jpg files
       id: file_count
-      run: echo "::set-output name=count::$(find . -type f ! -name '*.jpg' | wc -l)"
+      run: |
+        file_count=$(find . -type f ! -name '*.jpg' | wc -l)
+        echo "::set-output name=count::$file_count"
 
     - name: Get commit details
       id: commit_details
