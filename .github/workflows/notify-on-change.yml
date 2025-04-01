@@ -1,2 +1,41 @@
+name: Notify on Change
 
-txt
+on:
+  push:
+    branches:
+      - main  # Change this to the branch you want to monitor
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Get repository file count excluding .jpg files
+      id: file_count
+      run: echo "::set-output name=count::$(find . -type f ! -name '*.jpg' | wc -l)"
+
+    - name: Get commit details
+      id: commit_details
+      run: |
+        echo "::set-output name=message::$(git log -1 --pretty=%B)"
+        echo "::set-output name=url::$(git log -1 --pretty=%H)"
+
+    - name: Send notification email
+      uses: dawidd6/action-send-mail@v3
+      with:
+        server_address: smtp.office365.com  # Replace with your SMTP server
+        server_port: 587
+        username: ${{ secrets.SMTP_USERNAME }}
+        password: ${{ secrets.SMTP_PASSWORD }}
+        subject: Repository Change Notification
+        to: recipient@example.com  # Replace with the recipient's email address
+        from: sender@example.com  # Replace with the sender's email address
+        body: |
+          Changes have been made to the repository.
+          Total number of files (excluding .jpg): ${{ steps.file_count.outputs.count }}
+          Commit details:
+          Message: ${{ steps.commit_details.outputs.message }}
+          URL: https://github.com/your-repo/commit/${{ steps.commit_details.outputs.url }}
