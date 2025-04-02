@@ -1,4 +1,4 @@
-# Import the CSV files
+# Import the CSV file
 $csv1 = Import-Csv -Path $csvPath1
 $csv2 = Import-Csv -Path $csvPath2
 
