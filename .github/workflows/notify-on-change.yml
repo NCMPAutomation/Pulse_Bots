@@ -29,7 +29,7 @@ jobs:
         total_files=0
         for branch in ${{ env.branches }}; do
           git checkout $branch
-          branch_files=$(git ls-tree -r --name-only HEAD | grep -E '\.sh$|\.py$|\.js$|\.ps1$|\.xaml$|\.yml$|\.xml$' | wc -l)
+          branch_files=$(git ls-tree -r --name-only HEAD | grep -E '\.sh$|\.py$|\.js$|\.ps1$|\.xaml$|\.yml$|\.xml$|\.yaml$' | wc -l)
           total_files=$((total_files + branch_files))
         done
         echo "total_files=$total_files" >> $GITHUB_ENV
