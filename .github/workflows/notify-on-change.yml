@@ -3,10 +3,16 @@ name: Notify on Change
 on:
   push:
     branches:
-      - '**'  # Monitor all branches
+      - 'main'
+      - 'Custom-Applications-Bots'
+      - 'Enterprise-Applications-Bots'
+      - 'Simple-Bots'
   pull_request:
     branches:
-      - '**'  # Monitor all branches
+      - 'main'
+      - 'Custom-Applications-Bots'
+      - 'Enterprise-Applications-Bots'
+      - 'Simple-Bots'
 
 jobs:
   notify:
