@@ -18,10 +18,21 @@ jobs:
       with:
         fetch-depth: 0  # Fetch all branches
 
-    - name: Get total file count in all branches
+    - name: Get all branches
+      id: branches
+      run: |
+        branches=$(git branch -r | grep -v '\->' | sed 's/origin\///')
+        echo "branches=$branches" >> $GITHUB_ENV
+
+    - name: Count files in all branches
       id: file_count
       run: |
-        total_files=$(git ls-tree -r --name-only HEAD | wc -l)
+        total_files=0
+        for branch in ${{ env.branches }}; do
+          git checkout $branch
+          branch_files=$(git ls-tree -r --name-only HEAD | wc -l)
+          total_files=$((total_files + branch_files))
+        done
         echo "total_files=$total_files" >> $GITHUB_ENV
 
     - name: Get commit details
