@@ -1,4 +1,4 @@
-# Define the Okta domain and API token
+# Define the Okta domain and the API token
 $oktaDomain = "https://trial-8519316.okta.com"
 $apiToken = ""
  
