@@ -74,10 +74,9 @@ jobs:
         body: |
           Changes have been made to the repository.
           Branch: ${{ env.branch }}
+          
           Commit details:
           Message: ${{ env.message }}
-          URL: https://github.com/${{ github.repository }}/commit/${{ env.sha }}
-          Total number of files: ${{ env.total_files }}
+
           Total number of script files: ${{ env.total_script_files }}
-          Files in the repository:
-          ${{ env.all_files }}
+
