@@ -29,7 +29,7 @@ jobs:
         total_files=0
         for branch in ${{ env.branches }}; do
           git checkout $branch
-          branch_files=$(git ls-tree -r --name-only HEAD | grep -E '\.sh$|\.py$|\.js$|\.ps1$' | wc -l)
+          branch_files=$(git ls-tree -r --name-only HEAD | grep -E '\.sh$|\.py$|\.js$|\.ps1$|\.xaml$|\.yml$' | wc -l)
           total_files=$((total_files + branch_files))
         done
         echo "total_files=$total_files" >> $GITHUB_ENV
@@ -44,11 +44,6 @@ jobs:
           total_files=$((total_files + branch_files))
         done
         echo "total_files_excluding=$total_files" >> $GITHUB_ENV
-    - name: Get file extensions in all branches
-      id: file_extensions
-      run: |
-        extensions=$(git ls-tree -r --name-only HEAD | sed -n 's/.*\.\([a-zA-Z0-9]*\)$/\1/p' | sort | uniq)
-        echo "extensions=$extensions" >> $GITHUB_ENV
 
     - name: Get commit details
       id: commit_details
@@ -72,7 +67,6 @@ jobs:
           Branch: ${{ env.branch }}
           Total number of script files: ${{ env.total_files }}
           Total number of files excluding specific extensions: ${{ env.total_files_excluding }}
-          File extensions present: ${{ env.extensions }}
           Commit details:
           Message: ${{ env.message }}
           URL: https://github.com/${{ github.repository }}/commit/${{ env.sha }}
