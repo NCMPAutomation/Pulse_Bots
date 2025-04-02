@@ -2,17 +2,8 @@ name: Notify on Change
 
 on:
   push:
-    branches:
-      - 'main'
-      - 'Custom-Applications-Bots'
-      - 'Enterprise-Applications-Bots'
-      - 'Simple-Bots'
-  pull_request:
-    branches:
-      - 'main'
-      - 'Custom-Applications-Bots'
-      - 'Enterprise-Applications-Bots'
-      - 'Simple-Bots'
+    branches-ignore:
+      - main #ignore main, trigger only on sub branchees
 
 jobs:
   notify:
