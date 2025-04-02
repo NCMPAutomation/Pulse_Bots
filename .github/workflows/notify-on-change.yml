@@ -1,13 +1,6 @@
 name: Notify on Change
 
-on:
-  push:
-    branches:
-      - '**'  # Monitor all branches
-  pull_request:
-    branches:
-      - '**'  # Monitor all branches
-
+on: push
 jobs:
   notify:
     runs-on: ubuntu-latest
