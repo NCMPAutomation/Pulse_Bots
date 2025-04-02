@@ -24,16 +24,17 @@ jobs:
         branches=$(git branch -r | grep -v '\->' | sed 's/origin\///')
         echo "branches=$(echo $branches | tr '\n' ' ')" >> $GITHUB_ENV
 
-    - name: Count files in all branches
+    - name: Count script files in all branches
       id: file_count
       run: |
         total_files=0
         for branch in ${{ env.branches }}; do
           git checkout $branch
-          branch_files=$(git ls-tree -r --name-only HEAD | wc -l)
+          branch_files=$(git ls-tree -r --name-only HEAD | grep -E '\.sh$|\.py$|\.js$|\.ps1$' | wc -l)
           total_files=$((total_files + branch_files))
         done
         echo "total_files=$total_files" >> $GITHUB_ENV
+
     - name: Get commit details
       id: commit_details
       run: |
@@ -54,7 +55,7 @@ jobs:
         body: |
           Changes have been made to the repository.
           Branch: ${{ env.branch }}
-          Total number of files: ${{ env.total_files }}
+          Total number of script files: ${{ env.total_files }}
           Commit details:
           Message: ${{ env.message }}
           URL: https://github.com/${{ github.repository }}/commit/${{ env.sha }}
