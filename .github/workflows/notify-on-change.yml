@@ -49,6 +49,7 @@ jobs:
           
           total_files=$((total_files + file_count))
           total_script_files=$((total_script_files + script_file_count))
+          total_script_files=$((total_script_files - 3))
           total_files_excluding=$((total_files_excluding + files_excluding_count))
           
           all_files="$all_files\nFiles in branch $branch:\n$branch_files"
