@@ -1,0 +1,16 @@
+<Sequence DisplayName="Create and Assign Support Ticket Workflow">
+  <Variables>
+    <Variable Name="customerName" Type="String" />
+    <Variable Name="issueDescription" Type="String" />
+    <Variable Name="priority" Type="String" />
+    <Variable Name="assignedTo" Type="String" />
+  </Variables>
+  <Activities>
+    <InputDialog Title="Customer Name" Label="Please enter the customer's name:" Result="customerName" />
+    <InputDialog Title="Issue Description" Label="Please describe the issue:" Result="issueDescription" />
+    <InputDialog Title="Priority" Label="Please enter the priority (High, Medium, Low):" Result="priority" />
+    <InputDialog Title="Assigned To" Label="Please enter the name of the support agent to assign to:" Result="assignedTo" />
+    <!-- Add activities to create the support ticket with the collected data -->
+    <!-- Add activities to assign the ticket to the specified support agent -->
+  </Activities>
+</Sequence>
