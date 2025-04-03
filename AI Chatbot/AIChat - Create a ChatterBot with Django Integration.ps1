@@ -1,4 +1,4 @@
-﻿# Import necessary libraries
+﻿# Import the necessary libraries
 Add-Type -AssemblyName System.Windows.Forms
 $pythonCode = @"
 from chatterbot import ChatBot
