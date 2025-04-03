@@ -1,4 +1,4 @@
-# Import the Active Directory module
+# Import the Active Directory modules
 Import-Module ActiveDirectory
 
 # Define the target OU
