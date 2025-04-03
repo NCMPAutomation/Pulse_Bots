@@ -88,5 +88,10 @@ jobs:
 
           Total number of script files: ${{ env.total_script_files_final }}
 
+          
+          Changes made:
+          ${{ env.changes }}
+
+
           Thanks,
           Cloud Team
