@@ -1,4 +1,4 @@
-﻿# Define API endpoint, user ID, and permissions
+﻿# Define API endpoint, user ID, and permission
 $ApiUrl = "https://api.example.com/users/{userId}/permissions"
 $AccessToken = "your-access-token"
 $Permissions = @{
