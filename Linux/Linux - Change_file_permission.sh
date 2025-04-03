@@ -13,5 +13,5 @@ change_permissions() {
     fi
 }
 
-# Change permissions of a folder
+# Change the permissions of a folder
 change_permissions "/path/to/your/folder" "777"
