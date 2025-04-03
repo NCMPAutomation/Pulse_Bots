@@ -59,12 +59,26 @@ jobs:
         echo -e "$all_files" >> $GITHUB_ENV
         echo "EOF" >> $GITHUB_ENV
 
+
     - name: Get commit details
       id: commit_details
       run: |
-        echo "message=$(git log -1 --pretty=%B)" >> $GITHUB_ENV
+        if [ "${{ github.event_name }}" == "push" ]; then
+          echo "message=${{ github.event.head_commit.message }}" >> $GITHUB_ENV
+          changes=$(git diff --name-only HEAD~1 HEAD)
+          echo "changes<<EOF" >> $GITHUB_ENV
+          echo "$changes" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+        elif [ "${{ github.event_name }}" == "pull_request" ]; then
+          echo "message=$(git log -1 --pretty=%B ${{ github.event.pull_request.head.sha }})" >> $GITHUB_ENV
+          changes=$(git diff --name-only ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
+          echo "changes<<EOF" >> $GITHUB_ENV
+          echo "$changes" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+        fi
         echo "sha=$(git log -1 --pretty=%H)" >> $GITHUB_ENV
         echo "branch=$(git rev-parse --abbrev-ref HEAD)" >> $GITHUB_ENV
+
 
     - name: Send notification email
       uses: dawidd6/action-send-mail@v3
