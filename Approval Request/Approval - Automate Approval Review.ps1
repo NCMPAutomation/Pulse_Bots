@@ -1,4 +1,4 @@
-﻿# Automated review of approval requests based on predefined conditions
+﻿# Automated review of approval requests based on predefined condition
 $approvalRequest = Import-Json -Path "C:\Temp\ApprovalRequest.json"
 
 if ($approvalRequest.Description -match "Critical" -and $approvalRequest.Status -eq "Pending") {
