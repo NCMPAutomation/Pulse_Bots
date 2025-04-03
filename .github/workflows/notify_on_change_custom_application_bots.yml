@@ -81,7 +81,7 @@ jobs:
           
           Please be informed that changes have been made to the repository.
           
-          Branch: ${{ env.branch }}
+          Branch: ${{ github.ref_name 
           
           Commit details:
           Message: ${{ env.message }}
