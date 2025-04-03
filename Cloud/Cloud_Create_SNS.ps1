@@ -1,7 +1,7 @@
 # Install AWS Tools for PowerShell
 Install-Module -Name AWSPowerShell.NetCore
 
-# Set up AWS credentials
+# Set up the AWS credentials
 Set-AWSCredential -AccessKey YOUR_ACCESS_KEY -SecretKey YOUR_SECRET_KEY -StoreAs default
 
 # Create a new SNS topic
