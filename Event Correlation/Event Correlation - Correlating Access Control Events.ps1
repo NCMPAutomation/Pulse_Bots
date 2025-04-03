@@ -1,4 +1,4 @@
-# Define the access control log of file path
+# Define access control log of file path
 $logFilePath = "C:\path\to\access_control_log.txt"
 
 # Read the log file
