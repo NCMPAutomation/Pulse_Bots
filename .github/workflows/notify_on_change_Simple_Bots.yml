@@ -87,7 +87,7 @@ jobs:
         username: ${{ secrets.SMTP_USERNAME }}
         password: ${{ secrets.SMTP_PASSWORD }}
         subject: Repository update Notification
-        to: athulya.s@netcon.in  # Replace with the recipient's email address
+        to: athulya.s@netcon.in,brindha.a@netcon.in,sagargajanan.a@netcon.in,Soumya.a@netcon.in,sreesutha.as@netcon.in  # Replace with the recipient's email address
         from: netconncmp@netcon.in  # Replace with the sender's email address
         body: |
           Hi Team,
