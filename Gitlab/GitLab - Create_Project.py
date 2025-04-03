@@ -1,7 +1,7 @@
 import requests
 import json
 
-# Replace these with your GitLab details
+# Replace these with your GitLab detail
 GITLAB_URL = 'https://gitlab.com'
 PRIVATE_TOKEN = 'glpat-XwtMyDPMD2setHr2FMoj'
 PROJECT_NAME = 'Test_project'
