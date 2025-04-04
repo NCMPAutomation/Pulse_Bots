@@ -6,5 +6,5 @@ $standupPayload = @{
     text = "Reminder: Daily standup meeting at 10 AM."
 } | ConvertTo-Json
 
-# Send the daily standup reminder to the chat platform
+# Send the daily standup reminder to the chat platforms
 Invoke-RestMethod -Uri $webhookUrl -Method Post -Body $standupPayload -ContentType "application/json"
